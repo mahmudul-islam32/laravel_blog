@@ -32,6 +32,16 @@
 
 <div class="form-group">
 
+    {!! Form::label('published_at','Published_on:') !!}
+
+    {!! Form::input('date','published_at', date('Y-m-d'),
+        array(
+              'class'=>'form-control'
+              )) !!}
+</div>
+
+<div class="form-group">
+
 
     {!! Form::submit('Add Article', null,
         array(
