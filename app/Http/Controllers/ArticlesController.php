@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Http\Requests\ArticleRequest;
 use App\Article;
 use Carbon\Carbon;
 
@@ -34,7 +35,7 @@ class ArticlesController extends Controller
         return view('article.create');
     }
 
-    public function store(Requests\CreateArticleRequest $request)
+    public function store(Requests\ArticleRequest $request)
     {
 
         Article::create($request->all());
@@ -53,7 +54,7 @@ class ArticlesController extends Controller
 
     }
 
-    public function update($id, Request $request)
+    public function update($id, ArticleRequest $request)
     {
         $article = Article::findorfail($id);
         $article->update($request->all());
