@@ -3,25 +3,28 @@
 namespace App\Http\Controllers;
 
 
-
+use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Article;
 use Carbon\Carbon;
 
 
+
 class ArticlesController extends Controller
 {
-    public function index(){
+    public function index()
+    {
 
-        $articles =Article::latest('published_at')->published()->get();
-        return view('article.articles',compact('articles'));
+        $articles = Article::latest('published_at')->published()->get();
+        return view('article.articles', compact('articles'));
     }
 
-    public function show($id){
+    public function show($id)
+    {
 
-        $article =Article::findOrfail($id);
+        $article = Article::findOrfail($id);
 
-        return view('article.show',compact('article'));
+        return view('article.show', compact('article'));
 
 
     }
@@ -31,11 +34,33 @@ class ArticlesController extends Controller
         return view('article.create');
     }
 
-    public function store(Requests\CreateArticleRequest $request){
+    public function store(Requests\CreateArticleRequest $request)
+    {
 
-       Article::create($request->all());
+        Article::create($request->all());
 
 
-       return redirect('articles');
+        return redirect('articles');
+    }
+
+    public function edit($id)
+    {
+
+        $article = Article::findorfail($id);
+
+        return view('article.edit', compact('article'));
+
+
+    }
+
+    public function update($id, Request $request)
+    {
+        $article = Article::findorfail($id);
+        $article->update($request->all());
+
+
+        return redirect('articles');
+
+
     }
 }
