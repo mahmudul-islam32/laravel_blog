@@ -3,10 +3,15 @@
 namespace App\Http\Controllers;
 
 
+
 use Illuminate\Http\Request;
 use App\Http\Requests;
+
 use App\Http\Requests\ArticleRequest;
 use App\Article;
+use App\Tag;
+
+
 use Carbon\Carbon;
 
 
@@ -32,24 +37,28 @@ class ArticlesController extends Controller
 
     public function create()
     {
-        return view('article.create');
+        $tags=Tag::lists('name','id');
+        return view('article.create',compact('tags'));
     }
 
-    public function store(Requests\ArticleRequest $request)
+    public function store(ArticleRequest $request)
     {
 
-        Article::create($request->all());
 
+        $article = Article::create($request->all());
+        $tagId=$request->input('tag_list');
+        $article->tags()->attach($tagId);
 
         return redirect('articles');
     }
 
-    public function edit($id)
+    public function edit( $id )
     {
+        $tags=Tag::lists('name','id');
 
         $article = Article::findorfail($id);
 
-        return view('article.edit', compact('article'));
+        return view('article.edit', compact('article','tags'));
 
 
     }

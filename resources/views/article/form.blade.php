@@ -33,6 +33,16 @@
 
 <div class="form-group">
 
+    {!! Form::label('tag_list','Tags:') !!}
+
+    {!! Form::select('tag_list[]',$tags, null,
+        array(
+              'class'=>'form-control','multiple'
+              )) !!}
+</div>
+
+<div class="form-group">
+
 
     {!! Form::submit($submitButton, null,
         array(
